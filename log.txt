@@ -1,0 +1,23 @@
+ 2020-07-17 12:44:56,840 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 12:45:28,010 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 12:45:30,501 - ERROR - Expected 4 octets in '192'
+ 2020-07-17 12:45:39,982 - ERROR - '288' is not a valid netmask
+ 2020-07-17 12:48:02,565 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 12:48:20,378 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 12:48:29,053 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 12:48:30,983 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 12:48:32,170 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:36:36,156 - ERROR - At least 3 parts expected in '2:1'
+ 2020-07-17 16:38:31,635 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:38:48,605 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:38:52,645 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:38:56,708 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:39:02,342 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:39:03,535 - ERROR - Uncorrect Network Address Syntax
+ 2020-07-17 16:39:22,275 - ERROR - Only decimal digits permitted in '0\\22' in '192.168.9.0\\22'
+ 2020-07-17 16:39:28,110 - ERROR - Only decimal digits permitted in '0\\22' in '192.168.9.0\\22'
+ 2020-07-17 16:39:30,629 - ERROR - address out of range
+ 2020-07-17 16:41:28,576 - ERROR - address out of range
+ 2020-07-17 16:41:45,780 - ERROR - address out of range
+ 2020-07-17 16:43:18,614 - ERROR - address out of range
+ 2020-07-17 16:43:32,713 - ERROR - address out of range

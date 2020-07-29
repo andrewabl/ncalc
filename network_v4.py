@@ -1,0 +1,40 @@
+import ipaddress, logging
+
+logging.basicConfig(level= logging.DEBUG, format = ' %(message)s')
+
+class Network_v4:
+
+    def __init__(self, address):
+
+        self.info_dict = {}
+        network = self.info_dict["Network"] = ipaddress.IPv4Network(address=address, strict=False)
+        self.info_dict["NetMask"] = network.netmask
+        self.info_dict["HostMask"] = network.hostmask
+
+        if str(address).find('/') == False:
+            logging.debug("\a\nWARNING - Network address should be with prefix. Ex: '/24'\n", )
+
+        elif network.prefixlen != 32:
+            self.info_dict["FirstAdd"], self.info_dict["LastAdd"], self.info_dict["WideAdd"] = network[1], network[-2], network[-1]
+
+    def view(self, binary_flag = False, title='IPv4-Network'):
+
+        position_var = 80 if binary_flag == True else  40
+        print('\n' + title.center(position_var, '-'))
+
+        for key in self.info_dict.keys():
+            print('\t', key, str(self.info_dict[key]).rjust(25 - len(key)), end = '\t')
+
+            if binary_flag is True:
+                print(self.to_bits(self.info_dict[key]))
+            else:
+                print()
+        temp_var = "-" * len(title)
+        print(temp_var.center(position_var, '-'))
+
+    def to_bits(self, address):
+
+        bits = []
+        for octet in str(address).split('/')[0].split('.'):
+            bits.append(bin(int(octet)).replace("0b",'').rjust(8, '0'))
+        return "_".join(bits)
