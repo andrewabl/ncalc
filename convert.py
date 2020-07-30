@@ -7,8 +7,8 @@ class Convert:
     hex_regex = r'(0x)?[0-9, a-f, A-F]+'
 
     def __init__(self, value):
-
-        self.value = self.setvalue(value)
+        
+        self.value = self.setvalue(value.replace('_', ''))
     
     def setvalue(self, value):
 

@@ -1,4 +1,5 @@
-import ipaddress, logging
+import logging
+from ipaddress import IPv4Network
 
 logging.basicConfig(level= logging.DEBUG, format = ' %(message)s')
 
@@ -7,7 +8,7 @@ class Network_v4:
     def __init__(self, address):
 
         self.info_dict = {}
-        network = self.info_dict["Network"] = ipaddress.IPv4Network(address=address, strict=False)
+        network = self.network = self.info_dict["Network"] = IPv4Network(address=address, strict=False)
         self.info_dict["NetMask"] = network.netmask
         self.info_dict["HostMask"] = network.hostmask
 
@@ -20,7 +21,7 @@ class Network_v4:
     def view(self, binary_flag = False, title='IPv4-Network'):
 
         position_var = 80 if binary_flag == True else  40
-        print('\n' + title.center(position_var, '-'))
+        print(title.center(position_var, '-'))
 
         for key in self.info_dict.keys():
             print('\t', key, str(self.info_dict[key]).rjust(25 - len(key)), end = '\t')
@@ -38,3 +39,13 @@ class Network_v4:
         for octet in str(address).split('/')[0].split('.'):
             bits.append(bin(int(octet)).replace("0b",'').rjust(8, '0'))
         return "_".join(bits)
+    
+    # def prefix_to_mask(self, prefix):
+
+    #     bits = ''
+    #     for count in range(0, 32):
+    #         if count < prefix:
+    #             bits += '1'
+    #         else:
+    #             bits += '0'
+    #     return bits

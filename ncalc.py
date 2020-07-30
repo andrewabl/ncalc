@@ -97,7 +97,8 @@ for param in sys.argv[1:]:
 
         if dict_flag['s']:
 
-            segm = Segmentation(address=param, binary_flag=dict_flag['b'])
+            segm = Segmentation(address=param, count=dict_flag['s'], binary_flag=dict_flag['b'])
+            segm.output()
 
     except ipaddress.AddressValueError as exp:
         print("\tE: \a", str(exp))
@@ -107,6 +108,6 @@ for param in sys.argv[1:]:
         print("\tE: \a", str(exp))
         add_log(str(exp))
 
-    except Exception as exp:
-        print("\tE: \a", str(exp))
-        add_log(str(exp))    
+    # except Exception as exp:
+    #     print("\tE: \a", str(exp))
+    #     add_log(str(exp))    
