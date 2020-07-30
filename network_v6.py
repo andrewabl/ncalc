@@ -7,7 +7,7 @@ class Network_v6:
     def __init__(self, address):
         
         self.info_dict = {}
-        network = ipaddress.IPv6Network(address, strict = False)
+        network = self.network = ipaddress.IPv6Network(address, strict = False)
         self.info_dict['Network']  = network.exploded
         self.info_dict["NetMask"] = network.netmask.exploded
         self.info_dict["HostMask"] = network.hostmask.exploded
@@ -18,32 +18,34 @@ class Network_v6:
         elif network.prefixlen != 128:
             self.info_dict["FirstAdd"], self.info_dict["LastAdd"], self.info_dict["WideAdd"] = network[1].exploded, network[-2].exploded, network[-1].exploded
 
-    def view(self, binary_flag = False):
+    def view(self, title='IPv6-Network', binary_flag = False):
         
         position_var = 100 if binary_flag else 70
-        print('\n' + 'IPv6-Network'.center(position_var, '-'))
+        print(title.center(position_var, '-'))
+
         for key in self.info_dict.keys():
-            print('\t', key, str(self.info_dict[key]).rjust(54 - len(key)), end = '\t')
+            self.view_slave(key=key, value=self.info_dict[key], binary_flag=binary_flag)
 
-            if binary_flag is True:
-                bits = self.to_bits(self.info_dict[key])
-                print()
-                
-                for count in range(0, 8):
-                    if count == 0 or count == 4:
-                        print('\t\t\t', end = '')
-                        
-                    print(bits[count], end = '')
-
-                    if count != 3 and count != 7:
-                        print('_', end = '')
-                    else:
-                        print()
-                print()
-            else:
-                print()
-        print('----------'.center(position_var, '-'))
+        temp_var = "-" * len(title)
+        print(temp_var.center(position_var, '-'))
     
+    def view_slave(self, key, value, binary_flag):
+        print('\t', key, str(value).rjust(54 - len(key)), end = '\n')
+
+        if binary_flag is True:
+            bits = self.to_bits(value)
+                
+            for count in range(0, 8):
+                if count == 0 or count == 4:
+                    print('\t\t\t', end = '')
+                        
+                print(bits[count], end = '')
+
+                if count != 3 and count != 7:
+                    print('_', end = '')
+                else:
+                    print()
+
     def to_bits(self, address):
         bits = []
         for hextet in str(address).split('/')[0].split(':'):

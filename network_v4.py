@@ -24,14 +24,18 @@ class Network_v4:
         print(title.center(position_var, '-'))
 
         for key in self.info_dict.keys():
-            print('\t', key, str(self.info_dict[key]).rjust(25 - len(key)), end = '\t')
-
-            if binary_flag is True:
-                print(self.to_bits(self.info_dict[key]))
-            else:
-                print()
+           self.view_slave(key=key, value=self.info_dict[key], binary_flag=binary_flag)
         temp_var = "-" * len(title)
         print(temp_var.center(position_var, '-'))
+
+    def view_slave(self, key, value, binary_flag):
+
+        print('\t', key, str(value).rjust(30 - len(key)), end = '\t')
+
+        if binary_flag is True:
+            print(self.to_bits(value))
+        else:
+            print()
 
     def to_bits(self, address):
 

@@ -2,13 +2,14 @@ import sys, ipaddress
 from convert import Convert
 from network_v4 import Network_v4
 from network_v6 import Network_v6
-from segmentation import Segmentation
+from segmentation_v4 import Segmentation_v4
+from segmentation_v6 import Segmentation_v6
 from log import add_log
 
 
 def flags(args):
 
-    flags_dict = {'h':0, 'n': 1, '6': 0, 's': 0, 'b': False, 'c': 0}
+    flags_dict = {'h':0, 'n': 1, '6': 0, 's': 0, 'b': False, 'c': 0, 'a': False}
 
     count = 1
     while len(args) > count:
@@ -44,6 +45,11 @@ def flags(args):
             
             elif args[count] == '-b':
                 flags_dict['b'] = True
+                del args[count]
+                count -= 1
+
+            elif args[count] == '-a':
+                flags_dict['a'] = True
                 del args[count]
                 count -= 1
 
@@ -87,8 +93,9 @@ for param in sys.argv[1:]:
 
         if dict_flag['6'] != 0: 
 
-            network = Network_v6(address=param)
-            network.view(binary_flag=dict_flag['b'])
+            if not dict_flag['s']:
+                network = Network_v6(address=param)
+                network.view(binary_flag=dict_flag['b'])
 
         if dict_flag['c'] != 0:
 
@@ -97,17 +104,23 @@ for param in sys.argv[1:]:
 
         if dict_flag['s']:
 
-            segm = Segmentation(address=param, count=dict_flag['s'], binary_flag=dict_flag['b'])
-            segm.output()
+            if dict_flag['6']:
+                segm = Segmentation_v6(address=param, count=dict_flag['s'], add_info=dict_flag['a'], binary_flag=dict_flag['b'])
+                segm.output()
+            else:
+                segm = Segmentation_v4(address=param, count=dict_flag['s'], add_info=dict_flag['a'], binary_flag=dict_flag['b'])
+                segm.output()
 
-    except ipaddress.AddressValueError as exp:
-        print("\tE: \a", str(exp))
-        add_log(str(exp))
+    # except ipaddress.AddressValueError as exp:
+    #     print("\tE: \a", str(exp))
+    #     add_log(str(exp))
 
-    except ipaddress.NetmaskValueError as exp:
-        print("\tE: \a", str(exp))
-        add_log(str(exp))
+    # except ipaddress.NetmaskValueError as exp:
+    #     print("\tE: \a", str(exp))
+    #     add_log(str(exp))
 
     # except Exception as exp:
     #     print("\tE: \a", str(exp))
     #     add_log(str(exp))    
+    except KeyError:
+        pass
